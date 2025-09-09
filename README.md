@@ -45,3 +45,4 @@ IT and Operations:
 Automated reports can summarize system logs, server performance, and error tracking. This helps IT teams monitor systems without manually analyzing large logs.
 
 *Output
+<img width="858" height="137" alt="Image" src="https://github.com/user-attachments/assets/b26754ad-b8ef-462e-9a1b-0f00ed174b90" />
