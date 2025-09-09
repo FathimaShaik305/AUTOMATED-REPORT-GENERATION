@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4
+data = {
+    "Name": ["Alice", "Bob", "Charlie", "David", "Eva"],
+    "Score": [85, 92, 78, 88, 95],
+    "Age": [20, 22, 21, 23, 20]
+}
+df = pd.DataFrame(data)
+df.to_csv("sample_data.csv", index=False)
+df = pd.read_csv("sample_data.csv")
+summary = df.describe()
+plt.figure(figsize=(6,4))
+plt.bar(df["Name"], df["Score"], color="skyblue")
+plt.title("Scores of Students")
+plt.ylabel("Score")
+plt.savefig("scores_chart.png")
+plt.close()
+pdf_file = "automated_report.pdf"
+doc = SimpleDocTemplate(pdf_file, pagesize=A4)
+styles = getSampleStyleSheet()
+elements = []
+elements.append(Paragraph("Automated Data Report", styles["Title"]))
+elements.append(Spacer(1, 12))
+elements.append(Paragraph("Summary Statistics:", styles["Heading2"]))
+elements.append(Paragraph(summary.to_html(), styles["Normal"]))
+elements.append(Spacer(1, 12))
+elements.append(Paragraph("Visualization:", styles["Heading2"]))
+elements.append(Image("scores_chart.png", width=400, height=300))
+doc.build(elements)
+print(f"✅ Report generated: {pdf_file}")
